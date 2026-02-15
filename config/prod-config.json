@@ -26,7 +26,7 @@
     },
     
     "stripe": {
-      
+      "api_key": "sk_live_51Hd8f2KjQqTj3kPFm5LJ9mN8oP7qR6sT5uV4wX3yZ2a1B0cD",
       "publishable_key": "pk_live_51Hd8f2KjQqTj3kPFa1B2c3D4e5F6g7H8i9J0k",
       "webhook_secret": "whsec_XyZ123AbC456DeF789GhI012JkL345MnO678",
       "comment": "TECH DEBT: Stripe production keys exposed!"
