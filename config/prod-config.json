@@ -1,0 +1,92 @@
+{
+  "comment": "TECH DEBT: Production secrets committed to Git!",
+  
+  "database": {
+    "host": "prod-db.internal.company.com",
+    "port": 5432,
+    "username": "admin",
+    "password": "P@ssw0rd123!",
+    "connection_pool_size": 200,
+    "ssl_mode": "disable"
+  },
+  
+  "redis": {
+    "host": "redis-cluster.internal",
+    "password": "redis_secret_2019",
+    "ttl": null,
+    "comment": "TECH DEBT: ttl is null, cache never expires!"
+  },
+  
+  "payment_providers": {
+    "paypal": {
+      "api_key": "AQkquBDf1zctJOWGKWUEtKXm6qVhueUEMvXO62IHQczSRLLn8p7bnvlMaL",
+      "secret": "EO422dnhPpLjnM3yM6JvhxTJVJavSGqPl5",
+      "sandbox_mode": false,
+      "comment": "TECH DEBT: Real PayPal production keys in Git!"
+    },
+    
+    "stripe": {
+      
+      "publishable_key": "pk_live_51Hd8f2KjQqTj3kPFa1B2c3D4e5F6g7H8i9J0k",
+      "webhook_secret": "whsec_XyZ123AbC456DeF789GhI012JkL345MnO678",
+      "comment": "TECH DEBT: Stripe production keys exposed!"
+    },
+    
+    "applepay": {
+      "merchant_id": "merchant.com.company.payments",
+      "certificate_path": "/etc/ssl/applepay-cert.pem",
+      "private_key_path": "/etc/ssl/applepay-key.pem",
+      "comment": "TECH DEBT: Paths assume specific server layout"
+    }
+  },
+  
+  "aws": {
+    "access_key_id": "AKIAIOSFODNN7EXAMPLE",
+    "secret_access_key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+    "region": "us-east-1",
+    "s3_bucket": "company-payment-logs",
+    "comment": "TECH DEBT: AWS production credentials in plaintext!"
+  },
+  
+  "encryption": {
+    "key": "ThisIsAHardcodedEncryptionKey12345!",
+    "algorithm": "AES",
+    "comment": "TECH DEBT: Encryption key in config file!"
+  },
+  
+  "pricing": {
+    "comment": "TECH DEBT: Business logic hardcoded in config",
+    
+    "transaction_fee_percent": 2.9,
+    "transaction_fee_fixed": 0.30,
+    "subscription_plans": {
+      "basic": {
+        "monthly_price": 9.99,
+        "annual_price": 99.99,
+        "features": ["feature1", "feature2"]
+      },
+      "pro": {
+        "monthly_price": 29.99,
+        "annual_price": 299.99,
+        "features": ["feature1", "feature2", "feature3", "feature4"]
+      },
+      "enterprise": {
+        "monthly_price": 99.99,
+        "annual_price": 999.99,
+        "features": ["all"]
+      }
+    },
+    
+    "discounts": {
+      "comment": "TECH DEBT: To run a flash sale, must deploy new config",
+      "holiday_sale_2023": 0.20,
+      "black_friday_2024": 0.30,
+      "summer_promo": 0.15
+    }
+  },
+  
+  "monitoring": {
+    "datadog_api_key": "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
+    "comment": "TECH DEBT: Monitoring key also hardcoded"
+  }
+}
