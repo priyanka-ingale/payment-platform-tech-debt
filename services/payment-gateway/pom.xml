@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.paymentplatform</groupId>
+    <artifactId>payment-gateway</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>Payment Gateway</name>
+    <description>TECH DEBT: Dependencies are years out of date</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <!-- TECH DEBT: Using Java 8 in 2026 when Java 21 LTS is available -->
+    </properties>
+
+    <dependencies>
+        <!-- TECH DEBT: Log4j 1.2.17 - CRITICAL VULNERABILITY CVE-2021-44228 -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <!-- TECH DEBT: Servlet API 2.5 from 2005 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- TECH DEBT: Apache HttpClient 4.3 from 2013 -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.6</version>
+        </dependency>
+
+        <!-- TECH DEBT: JSON library from 2015 -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20150729</version>
+        </dependency>
+
+        <!-- TECH DEBT: JJWT 0.9.0 - current is 0.12.x -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
+        <!-- TECH DEBT: PostgreSQL driver from 2018 -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
+        </dependency>
+
+        <!-- TECH DEBT: Commons Lang 2.6 from 2011, should use 3.x -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+        <!-- TECH DEBT: Jackson 2.9 from 2017, current is 2.16 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.8</version>
+        </dependency>
+
+        <!-- TECH DEBT: Guava 19.0 from 2016, current is 33.x -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
+        </dependency>
+
+        <!-- TECH DEBT: JUnit 4 for tests, should migrate to JUnit 5 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- TECH DEBT: Mockito 1.x, current is 5.x -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <!-- TECH DEBT: No dependency vulnerability scanning -->
+            <!-- TECH DEBT: No code quality checks -->
+            <!-- TECH DEBT: No test coverage requirements -->
+        </plugins>
+    </build>
+
+    <!-- TECH DEBT: Security vulnerabilities in these dependencies:
+         - Log4j 1.2.17: CVE-2021-44228 (Log4Shell) - CRITICAL
+         - Jackson 2.9.8: Multiple CVEs including deserialization issues
+         - HttpClient 4.3.6: Missing security patches from last 10 years
+         - Commons Lang 2.6: End of life, no security updates
+         - Guava 19.0: Multiple security issues fixed in later versions
+         
+         Cost impact:
+         - Cannot use modern Java features (Java 9-21)
+         - Cannot integrate with modern libraries
+         - Mandatory security audit findings
+         - Emergency patching required when CVEs are discovered
+         - New engineers familiar with modern Java struggle with old patterns
+    -->
+</project>

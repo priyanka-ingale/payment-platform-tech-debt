@@ -1,0 +1,140 @@
+version: '3.3'
+
+# TECH DEBT: Docker Compose for production (should use Kubernetes)
+# TECH DEBT: No health checks
+# TECH DEBT: No resource limits
+# TECH DEBT: No restart policies
+# TECH DEBT: Hardcoded ports
+
+services:
+  # TECH DEBT: 15 services defined here, hard to manage
+  
+  payment-gateway-1:
+    image: payment-gateway:latest
+    ports:
+      - "8080:8080"  # TECH DEBT: Hardcoded ports
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=admin
+      - DB_PASSWORD=P@ssw0rd123!  # TECH DEBT: Credentials in docker-compose
+    depends_on:
+      - postgres
+      - redis
+    # TECH DEBT: No health check
+    # TECH DEBT: No resource limits (can consume all host resources)
+    # TECH DEBT: No logging configuration
+
+  payment-gateway-2:
+    image: payment-gateway:latest
+    ports:
+      - "8081:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=admin
+      - DB_PASSWORD=P@ssw0rd123!
+    depends_on:
+      - postgres
+      - redis
+
+  payment-gateway-3:
+    image: payment-gateway:latest
+    ports:
+      - "8082:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=admin
+      - DB_PASSWORD=P@ssw0rd123!
+    depends_on:
+      - postgres
+      - redis
+
+  subscription-service-1:
+    image: subscription-service:latest
+    ports:
+      - "8090:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=admin
+      - DB_PASSWORD=P@ssw0rd123!
+    depends_on:
+      - postgres
+
+  subscription-service-2:
+    image: subscription-service:latest
+    ports:
+      - "8091:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=admin
+      - DB_PASSWORD=P@ssw0rd123!
+    depends_on:
+      - postgres
+
+  billing-service-1:
+    image: billing-service:latest
+    ports:
+      - "8100:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=admin
+      - DB_PASSWORD=P@ssw0rd123!
+    depends_on:
+      - postgres
+
+  billing-service-2:
+    image: billing-service:latest
+    ports:
+      - "8101:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=admin
+      - DB_PASSWORD=P@ssw0rd123!
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:11  # TECH DEBT: PostgreSQL 11, current is 16
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=P@ssw0rd123!
+      - POSTGRES_DB=payments
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # TECH DEBT: No connection limits
+    # TECH DEBT: No performance tuning
+    # TECH DEBT: No backup configuration
+
+  redis:
+    image: redis:5.0  # TECH DEBT: Redis 5.0 from 2019, current is 7.x
+    ports:
+      - "6379:6379"
+    # TECH DEBT: No password
+    # TECH DEBT: No persistence configuration
+    # TECH DEBT: No memory limits (will use all RAM)
+    # TECH DEBT: No eviction policy
+
+  # TECH DEBT: No load balancer configured
+  # TECH DEBT: No service discovery
+  # TECH DEBT: No monitoring/metrics collection
+  # TECH DEBT: No centralized logging
+
+volumes:
+  postgres_data:
+    # TECH DEBT: No backup strategy
+    # TECH DEBT: Data loss on volume removal
+
+# TECH DEBT: No networking configuration
+# TECH DEBT: All services on same network (no isolation)
+# TECH DEBT: No secrets management
+# TECH DEBT: No CI/CD integration
+# TECH DEBT: Development and production use same compose file
+
+# IMPACT:
+# - Cannot scale horizontally effectively
+# - No zero-downtime deployments
+# - No service mesh capabilities
+# - Security credentials exposed
+# - Resource contention between services
+# - No observability
